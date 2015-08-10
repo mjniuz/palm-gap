@@ -57,6 +57,11 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+		function myMsgClickHandler(msg){
+			console.log("Clicked On notification" + JSON.stringify(msg));
+			alert(JSON.stringify(msg));
+		}
+		PushbotsPlugin.onNotificationClick(myMsgClickHandler);
     }
 	
 };
@@ -78,7 +83,7 @@ var app = {
 	
 	function pindahPage(link){		
 		$.mobile.changePage( link, { 
-			transition: "slide", 
+			transition: "fade", 
 			changeHash: true,
 			allowSamePageTransition:true,
 			reloadPage:false	

@@ -374,6 +374,7 @@ h1 {
 .event.listening {
     background-color:#333333;
     display:block;
+	width:120px;
 }
 
 .event.received {
