@@ -35,17 +35,17 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 		if(PushbotsPlugin.isiOS()){
-			PushbotsPlugin.initializeiOS("55b5b9281779598e1c8b456b");
+			PushbotsPlugin.initializeiOS("55c88e4717795918438b4567");
 		}
 		if(PushbotsPlugin.isAndroid()){
-			PushbotsPlugin.initializeAndroid("55b5b9281779598e1c8b456b", "888474954807");
+			PushbotsPlugin.initializeAndroid("55c88e4717795918438b4567", "888474954807");
 		}
-						
 		function myMsgClickHandler(msg){
 			console.log("Clicked On notification" + JSON.stringify(msg));
 			alert(JSON.stringify(msg));
 		}
 		PushbotsPlugin.onNotificationClick(myMsgClickHandler);
+						
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -58,6 +58,7 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+	
 };
 // notif event
 	function getCookie(name){

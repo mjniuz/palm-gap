@@ -6,10 +6,10 @@
         id        = "com.phonegap.helloworld"
         version   = "1.0.1">
 
-    <name>BCA Log by Alan</name>
+    <name>Palm</name>
 
     <description>
-        Cek log mutasi bca secara otomatis
+		Palm Desc
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
