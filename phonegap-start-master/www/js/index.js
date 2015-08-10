@@ -62,9 +62,7 @@ var app = {
 };
 // notif event
 	function getCookie(name){
-		var re = new RegExp(name + "=([^;]+)");
-		var value = re.exec(document.cookie);
-		return (value != null) ? unescape(value[1]) : null;
+		return localStorage.getItem(name);
 	}
   
 	
@@ -277,9 +275,9 @@ $(document)
 		var origin = rootUrl + 'example/codeactivation';
 		
 		var code = $("#code").val();
-		var phone = getCookie('number');
-		var dataString = 'code='+code+'&phone='+phone;
-		if($.trim(code).length>0 && $.trim(phone).length>0){
+		var phoneNum = getCookie('number');
+		var dataString = 'code='+code+'&phone='+phoneNum;
+		if($.trim(code).length>0 && $.trim(phoneNum).length>0){
 		$.ajax({
 		type: "POST",
 		url: origin,
@@ -289,14 +287,9 @@ $(document)
 		success: function(data){
 		if(data != "false"){
 			if(data.res == "ok"){ 
-				alert('Sukses, Anda sudah login');
-				makecokies('number',data.phone);				
+				alert('Sukses, Anda sudah login');			
 				makecokies('logedin','true');
-				$.mobile.changePage( "logedin.html", { 
-					transition: "slideup", 
-					changeHash: false,
-					reverse: true 			
-				});
+				pindahPage('#dashboard');
 			}else{
 				alert('Error '+data.why);
 			}
