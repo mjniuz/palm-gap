@@ -16,6 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+		function myMsgClickHandler(msg){
+			console.log("Clicked On notification" + JSON.stringify(msg));
+			alert(JSON.stringify(msg));
+		}
 var app = {
     // Application Constructor
     initialize: function() {
@@ -40,11 +45,6 @@ var app = {
 		if(PushbotsPlugin.isAndroid()){
 			PushbotsPlugin.initializeAndroid("55c88e4717795918438b4567", "888474954807");
 		}
-		function myMsgClickHandler(msg){
-			console.log("Clicked On notification" + JSON.stringify(msg));
-			alert(JSON.stringify(msg));
-		}
-		PushbotsPlugin.onNotificationClick(myMsgClickHandler);
 						
     },
     // Update DOM on a Received Event
@@ -57,10 +57,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-		function myMsgClickHandler(msg){
-			console.log("Clicked On notification" + JSON.stringify(msg));
-			alert(JSON.stringify(msg));
-		}
 		PushbotsPlugin.onNotificationClick(myMsgClickHandler);
     }
 	
