@@ -95,6 +95,7 @@ var app = {
 	function changeDiv(a,b){
 		$(a).html( $(b).html() ,'slow'); 
 	}
+	
 	function isLoged(){
 	var logedin = getCookie('logedin');
 	var numberC = getCookie('number');
@@ -111,10 +112,41 @@ $(document)
 	
 	
 	$('[data-role=page]').on('pageshow', function (event, ui) {
+	if(!isLoged()){
+			//alert(isLoged());
+			$("#" + event.target.id).find("[data-role=footer]").load("footer-logout.html", function(){
+				$("#log1").off().click(function(){	
+					alert('You need to log in');					
+					pindahPage('#index');
+				})
+				$("#log2").off().click(function(){	
+					alert('You need to log in');				
+					pindahPage('#index');
+				})
+				$("#log3").off().click(function(){	
+					alert('You need to log in');				
+					pindahPage('#index');
+				})
+				$("#log4").off().click(function(){	
+					alert('You need to log in');				
+					pindahPage('#index');
+				})
+			});
+		
+	}else{
+		$("#layout-footer").empty();
+		$("#" + event.target.id).find("[data-role=footer]").load("footer.html", function(){
+			
+		});		
+       event.preventDefault();
+	}
+	})
+		
+	$('[data-role=page]').on('pageshow', function (event, ui) {
         $("#" + event.target.id).find("[data-role=header]").load("header.html", function(){
 				
         });
-		if(isLoged() === 'false'){
+		/*if(isLoged() === 'false'){
 			$("#" + event.target.id).find("[data-role=footer]").load("footer-logout.html", function(){
 				$("#log1").off().click(function(){	
 					alert('You need to log in');					
@@ -137,7 +169,7 @@ $(document)
 			$("#" + event.target.id).find("[data-role=footer]").load("footer.html", function(){
 			
 			});
-		}
+		} */
 		
 		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
 		if(pageAct === 'news'){
@@ -190,7 +222,7 @@ $(document)
 		var value = getCookie('number');
 		alert(session);
     })
-	$("#delete").click(function(){
+	$("#delete").off().click(function(){
 		delcokies('logedin');
 		delcokies('number');
 		alert('Deleted');
