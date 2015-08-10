@@ -69,11 +69,13 @@ var app = {
   
 	
 	function makecokies(key,val){
-		document.cookie= key+"="+val+"; expires=Thu, 6 Aug 2020 12:00:00 UTC; path=/"; 
+		//document.cookie= key+"="+val+"; expires=Thu, 6 Aug 2020 12:00:00 UTC; path=/"; 
+		localStorage.setItem(key,val);
 	}
 	
 	function delcokies(key){
-		document.cookie = key + "=;expires=Sa, 1 Aug 2015 12:00:00 UTC; path=/";
+		//document.cookie = key + "=;expires=Sa, 1 Aug 2015 12:00:00 UTC; path=/";
+		localStorage.removeItem(key);
 	}
 	
 	function pindahPage(link){		
@@ -97,9 +99,9 @@ var app = {
 	}
 	
 	function isLoged(){
-	var logedin = getCookie('logedin');
-	var numberC = getCookie('number');
-		if(logedin === 'true' && numberC > 0){
+	var logedin = localStorage.getItem('logedin');
+	var numberC = localStorage.getItem('number');
+		if(logedin == 'true' && numberC > 0){
 			return true;
 		}else{
 			return false;
@@ -198,7 +200,7 @@ $(document)
 	})
 	
 	$("#testCookie").off().click(function(){
-		var session = document.cookie;
+		var session = localStorage.getItem('logedin') + localStorage.getItem('number');
 		alert(session);
 	})	
 	$("#back").off().click(function(){ 
@@ -214,12 +216,11 @@ $(document)
 	$("#cookie").off().click(function(){
 		makecokies('number','081806423887');
 		makecokies('logedin',true);
-		alert(document.cookie);
+		alert(localStorage.getItem('logedin'));
 		pindahPage('#dashboard');
     })
 	$("#show").off().click(function(){
-		var session = document.cookie;
-		var value = getCookie('number');
+		var session = localStorage.getItem('logedin');
 		alert(session);
     })
 	$("#delete").off().click(function(){
