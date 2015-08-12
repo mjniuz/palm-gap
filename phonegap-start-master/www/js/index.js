@@ -17,7 +17,7 @@
  * under the License.
  */
  
-	var rootUrl = 'http://palm.dicoba.net/api/';
+	var rootUrl = 'http://palm.dicoba.net/';
 	
 	function myMsgClickHandler(msg){
 		console.log("Clicked On notification" + JSON.stringify(msg));
@@ -110,10 +110,10 @@ var app = {
 	function newsAjax(id){
 		if(id == undefined){
 			$("#summary").html('');	
-			$.getJSON( rootUrl+"news/category/id/1", function( data ) {
+			$.getJSON( rootUrl+"api/news/category/id/1", function( data ) {
 				$('#loading').addClass('loading');	
 				$(data).off().each(function() {
-					var output = "<hr /><li class='h100'><a id='newsDetail' href='#' data-news='"+ this.id_news + "'><div class='user-image'><img src='http://news.dicoba.net/media/"
+					var output = "<hr /><li class='h100'><a id='newsDetail' href='#' data-news='"+ this.id_news + "'><div class='user-image'><img src='"+rootUrl+"media/"
 					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "</div></a></li>";
 					$('#summary').unbind().off().append(output);		
 				}); 
@@ -122,11 +122,11 @@ var app = {
 		}else{			
 			$("#newsDetailResult").html('');	
 			$("#theIMG").html('');	
-			$.getJSON( rootUrl+"news/content/id/"+id, function( data ) {
+			$.getJSON( rootUrl+"api/news/content/id/"+id, function( data ) {
 				$('#loading').addClass('loading');	
 				$(data).off().each(function() {
 					var output = "<h4 style='color:green;'>"+this.title+"</h4><br/><p>"+ this.content +"</p>";
-					var titleDetail =  "<img src='http://news.dicoba.net/media/"+ this.media + "' width='100%;' height='200px;' class='thumbnails'>";
+					var titleDetail =  "<img src='"+rootUrl+"media/"+ this.media + "' width='100%;' height='200px;' class='thumbnails'>";
 					$('#newsDetailResult').unbind().off().append(output);		
 					$('#theIMG').unbind().off().append(titleDetail);
 				}); 
@@ -139,7 +139,36 @@ var app = {
 (function($){
 $(document)
 .ready(function() {
-$('[data-role=page]').on('pageshow', function (event, ui) {
+	$('[data-role=page]').on('pageshow', function (event, ui) {
+		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
+		if(pageAct == 'news'){
+			newsAjax();		
+			$("#footer").html('');	
+			$("#footer").find("[data-role=footer]").load("footer.html", function(){			
+			});	
+		}
+		
+		if(pageAct == 'newsDetailPage'){
+			newsAjax(getCookie('newsDetailId'));		
+		}
+		
+	})
+})
+
+.on('click', '#newsDetail' ,function() {
+	makecokies('newsDetailId',$(this).attr('data-news'));	
+	pindahPage('#newsDetailPage');
+})
+.on('pageinit', function () { 
+	// variable session
+	
+	$('[data-role=page]').on('pageshow', function (event, ui) {
+		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
+		if(isLoged() && pageAct === 'index'){
+			alert('Loged In');
+			pindahPage('#dashboard');
+		}
+
 	if(!isLoged()){
 			//alert(isLoged());
 			$("#" + event.target.id).find("[data-role=footer]").load("footer-logout.html", function(){
@@ -169,34 +198,11 @@ $('[data-role=page]').on('pageshow', function (event, ui) {
 	}
 		event.preventDefault();
 		$("#" + event.target.id).find("[data-role=header]").load("header.html", function(){    });		
-		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
-		if(pageAct == 'news'){
-			newsAjax();			
-		}
-		
-		if(pageAct == 'newsDetailPage'){
-			newsAjax(getCookie('newsDetailId'));		
-		}
 	})
-})
-
-.on('click', '#newsDetail' ,function() {
-	makecokies('newsDetailId',$(this).attr('data-news'));	
-	pindahPage('#newsDetailPage');
-})
-.on('pageinit', function () { 
-	// variable session
-	
-	
 	
 	$("#go-ads").off().click(function(){
 		pindahPage('#ads');
 	})	
-	var pageNow = $(':mobile-pagecontainer').pagecontainer('getActivePage')[0].id;
-	if(isLoged() && pageNow === 'index'){
-		//alert('Loged In');
-		pindahPage('#dashboard');
-	}
 	
 	$("#go-ads").off().click(function(){
 		pindahPage('#ads');

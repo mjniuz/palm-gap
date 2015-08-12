@@ -316,6 +316,9 @@ input, button, submit { border:none; }
 .no-padding{
 	padding: 0 !important;
 }
+.margin-bottom{
+	margin-bottom: 60px;	
+}
 #theIMG{
 	border-bottom: 2px solid green;
 }
