@@ -302,6 +302,23 @@ input, button, submit { border:none; }
 	font-size:14px;
 	color:black;
 }
+.loading{
+	background-image: url("../img/loading.gif"); 
+    background-repeat: no-repeat;
+	height:40px;
+	width:40px;
+}
+.contentDetail{
+	margin-left: 10px;
+    margin-right: 10px;
+	margin-bottom: 60px;
+}
+.no-padding{
+	padding: 0 !important;
+}
+#theIMG{
+	border-bottom: 2px solid green;
+}
 hr{
 	margin-bottom: -10px;
 	padding:0px;

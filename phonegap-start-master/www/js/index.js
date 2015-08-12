@@ -17,10 +17,12 @@
  * under the License.
  */
  
-		function myMsgClickHandler(msg){
-			console.log("Clicked On notification" + JSON.stringify(msg));
-			alert(JSON.stringify(msg));
-		}
+	var rootUrl = 'http://palm.dicoba.net/api/';
+	
+	function myMsgClickHandler(msg){
+		console.log("Clicked On notification" + JSON.stringify(msg));
+		alert(JSON.stringify(msg));
+	}
 var app = {
     // Application Constructor
     initialize: function() {
@@ -68,12 +70,10 @@ var app = {
   
 	
 	function makecokies(key,val){
-		//document.cookie= key+"="+val+"; expires=Thu, 6 Aug 2020 12:00:00 UTC; path=/"; 
 		localStorage.setItem(key,val);
 	}
 	
 	function delcokies(key){
-		//document.cookie = key + "=;expires=Sa, 1 Aug 2015 12:00:00 UTC; path=/";
 		localStorage.removeItem(key);
 	}
 	
@@ -106,13 +106,40 @@ var app = {
 			return false;
 		}
 	}
+	
+	function newsAjax(id){
+		if(id == undefined){
+			$("#summary").html('');	
+			$.getJSON( rootUrl+"news/category/id/1", function( data ) {
+				$('#loading').addClass('loading');	
+				$(data).off().each(function() {
+					var output = "<hr /><li class='h100'><a id='newsDetail' href='#' data-news='"+ this.id_news + "'><div class='user-image'><img src='http://news.dicoba.net/media/"
+					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "</div></a></li>";
+					$('#summary').unbind().off().append(output);		
+				}); 
+				$('#loading').removeClass('loading');		
+			}); 
+		}else{			
+			$("#newsDetailResult").html('');	
+			$("#theIMG").html('');	
+			$.getJSON( rootUrl+"news/content/id/"+id, function( data ) {
+				$('#loading').addClass('loading');	
+				$(data).off().each(function() {
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><br/><p>"+ this.content +"</p>";
+					var titleDetail =  "<img src='http://news.dicoba.net/media/"+ this.media + "' width='100%;' height='200px;' class='thumbnails'>";
+					$('#newsDetailResult').unbind().off().append(output);		
+					$('#theIMG').unbind().off().append(titleDetail);
+				}); 
+				$('#loading').removeClass('loading');		
+			}); 
+		}
+	}
+	
+	
 (function($){
 $(document)
-.on('pageinit', function () { 
-	// variable session
-	
-	
-	$('[data-role=page]').on('pageshow', function (event, ui) {
+.ready(function() {
+$('[data-role=page]').on('pageshow', function (event, ui) {
 	if(!isLoged()){
 			//alert(isLoged());
 			$("#" + event.target.id).find("[data-role=footer]").load("footer-logout.html", function(){
@@ -139,51 +166,32 @@ $(document)
 		$("#" + event.target.id).find("[data-role=footer]").load("footer.html", function(){
 			
 		});		
-       event.preventDefault();
 	}
-	})
-		
-	$('[data-role=page]').on('pageshow', function (event, ui) {
-        $("#" + event.target.id).find("[data-role=header]").load("header.html", function(){
-				
-        });
-		/*if(isLoged() === 'false'){
-			$("#" + event.target.id).find("[data-role=footer]").load("footer-logout.html", function(){
-				$("#log1").off().click(function(){	
-					alert('You need to log in');					
-					pindahPage('#index');
-				})
-				$("#log2").off().click(function(){	
-					alert('You need to log in');				
-					pindahPage('#index');
-				})
-				$("#log3").off().click(function(){	
-					alert('You need to log in');				
-					pindahPage('#index');
-				})
-				$("#log4").off().click(function(){	
-					alert('You need to log in');				
-					pindahPage('#index');
-				})
-			});
-		}else{
-			$("#" + event.target.id).find("[data-role=footer]").load("footer.html", function(){
-			
-			});
-		} */
-		
+		event.preventDefault();
+		$("#" + event.target.id).find("[data-role=header]").load("header.html", function(){    });		
 		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
-		if(pageAct === 'news'){
-			$.getJSON( "http://news.dicoba.net/api/news/category/id/1", function( data ) {
-			$(data).each(function() {
-				var output = "<hr /><li class='h100'><a href='news.html?id=" + this.id_news + "'><div class='user-image pull-left'><img src='http://news.dicoba.net/media/"
-				+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "</div></a></li>";
-				$('#summary').off().append(output);
-			});
-			});
+		if(pageAct == 'news'){
+			newsAjax();			
 		}
-    })
+		
+		if(pageAct == 'newsDetailPage'){
+			newsAjax(getCookie('newsDetailId'));		
+		}
+	})
+})
+
+.on('click', '#newsDetail' ,function() {
+	makecokies('newsDetailId',$(this).attr('data-news'));	
+	pindahPage('#newsDetailPage');
+})
+.on('pageinit', function () { 
+	// variable session
 	
+	
+	
+	$("#go-ads").off().click(function(){
+		pindahPage('#ads');
+	})	
 	var pageNow = $(':mobile-pagecontainer').pagecontainer('getActivePage')[0].id;
 	if(isLoged() && pageNow === 'index'){
 		//alert('Loged In');
@@ -229,7 +237,6 @@ $(document)
 	})
 	$('#register-submit').off().click(function()
 	{
-		var rootUrl = 'http://palm.dicoba.net/api/';
 		var origin = rootUrl + 'example/user';
 		var name = $("#name").val();
 		var phone = $("#phone").val();
@@ -272,7 +279,6 @@ $(document)
 	
 	$('#code-send').off().click(function()
 	{
-		var rootUrl = 'http://palm.dicoba.net/api/';
 		var origin = rootUrl + 'example/codeactivation';
 		
 		var code = $("#code").val();

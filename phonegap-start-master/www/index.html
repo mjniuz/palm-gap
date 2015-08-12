@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 		<script src="js/jquery.mobile-1.4.5.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Palm</title><meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
@@ -147,7 +147,7 @@
 				<div class="border-logedin">
 				  <center>
 					<h3>Title Ads Area 
-					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">Back</a>
+					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
 					</h3> 
 				  </center>
 				</div>
@@ -165,14 +165,33 @@
 				<div class="border-logedin">
 				  <center>
 					<h2>«·√Œ»«—
-					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">Back</a>
+					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
 					</h2> 
 				  </center>
 				</div>
 				<br />
 				<ul class="ulright">
+				<center><div id="loading"></div></center>
 				<div id="summary"></div>
 				</ul>
+		  </div>
+		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		
+		<!-- Page News Detail -->
+		<div data-role="page" id="newsDetailPage">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content no-padding" id="newsDetailArea">
+				  <center>
+					<div id="theIMG"></div>
+					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+				  </center>
+				<br />
+				<div id="loading"></div>
+				<div id="newsDetailResult" class="contentDetail"></div>
 		  </div>
 		  
 		  <div class="footer" data-role="footer" id="footer">
