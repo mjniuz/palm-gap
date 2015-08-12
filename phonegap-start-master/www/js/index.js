@@ -77,13 +77,22 @@ var app = {
 		localStorage.removeItem(key);
 	}
 	
-	function pindahPage(link){		
+	function pindahPage(link,reload){
+		if(reload !== undefined){		
+		$.mobile.changePage( link, { 
+			transition: "fade", 
+			changeHash: true,
+			allowSamePageTransition:true,
+			reloadPage:true	
+		});			
+		}else{		
 		$.mobile.changePage( link, { 
 			transition: "fade", 
 			changeHash: true,
 			allowSamePageTransition:true,
 			reloadPage:false	
 		});
+		}
 	}
 	
 	
@@ -141,11 +150,8 @@ $(document)
 .ready(function() {
 	$('[data-role=page]').on('pageshow', function (event, ui) {
 		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
-		if(pageAct == 'news'){
+		if(pageAct === 'news'){
 			newsAjax();		
-			$("#footer").html('');	
-			$("#footer").find("[data-role=footer]").load("footer.html", function(){			
-			});	
 		}
 		
 		if(pageAct == 'newsDetailPage'){
@@ -159,6 +165,10 @@ $(document)
 	makecokies('newsDetailId',$(this).attr('data-news'));	
 	pindahPage('#newsDetailPage');
 })
+.on('click', '#goNews' ,function() {
+	pindahPage('#newsPage');
+	newsAjax();
+})
 .on('pageinit', function () { 
 	// variable session
 	
@@ -168,10 +178,10 @@ $(document)
 			alert('Loged In');
 			pindahPage('#dashboard');
 		}
-
+		
 	if(!isLoged()){
 			//alert(isLoged());
-			$("#" + event.target.id).find("[data-role=footer]").load("footer-logout.html", function(){
+			$("#" + event.target.id).find("[data-role=footer]").off().load("footer-logout.html", function(){
 				$("#log1").off().click(function(){	
 					alert('You need to log in');					
 					pindahPage('#index');
@@ -191,13 +201,13 @@ $(document)
 			});
 		
 	}else{
-		$("#layout-footer").empty();
-		$("#" + event.target.id).find("[data-role=footer]").load("footer.html", function(){
+		$("#layout-footer").off().empty();
+		$("#" + event.target.id).find("[data-role=footer]").off().load("footer.html", function(){
 			
 		});		
 	}
 		event.preventDefault();
-		$("#" + event.target.id).find("[data-role=header]").load("header.html", function(){    });		
+		$("#" + event.target.id).find("[data-role=header]").off().load("header.html", function(){    });		
 	})
 	
 	$("#go-ads").off().click(function(){
