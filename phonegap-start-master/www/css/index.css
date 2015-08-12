@@ -83,10 +83,9 @@ body {
 .footer-button{
 	margin: auto;
     width: 100%;
-	max-width:27%;
 }
 .menu1{
-	width:65px !Important;
+	width:24.5%;
 }
 ul
 {
@@ -105,54 +104,58 @@ li.menu1 {
 }
 .menu-name{
 	color:white;
-	padding-right: 15px;
+    font-size: 12px;
+    font-weight: normal;
 }
 .menu4{
 	color:white;
 	padding-left: 5px;
 }
+.alink{
+	width:100%;
+}
 .icon1{
 	background-image: url("../img/white/icon1.png"); 
     background-repeat: no-repeat;
 	background-size: 40px 40px;
-	height:35px;
-    width: 60%;
-	margin: auto;
+    height: 35px;    
+	margin: -4px auto;
+    width: 35px;
 }
 .icon2{
 	background-image: url("../img/white/icon2.png"); 
     background-repeat: no-repeat;
 	background-size: 40px 40px;
-	height:35px;
-    width: 60%;
-	margin: auto;
+    height: 35px;
+	margin: -4px auto;
+    width: 35px;
 }
 .icon3{
-	background-image: url("../img/white/icon3.png"); 
+	background-image: url("../img/white/icon3.png");
     background-repeat: no-repeat;
-	background-size: 40px 40px;
-	height:35px;
-    width: 60%;
-	margin: auto;
+    background-size: 40px 40px;
+    height: 35px;
+	margin: -4px auto;
+    width: 35px;
 }
 .icon4{
+	background-image: url("../img/white/icon4.png");
     background-repeat: no-repeat;
-	background-size: 40px 40px;
-	height:35px;
-    width: 60%;
-	margin: auto;
+    background-size: 40px 40px;
+    height: 35px;
+	margin: -4px auto;
+    width: 40px;
+}
+.nopadding {
+	padding: 0 !important;
 }
 .btn-line{
-	position: relative;
-	padding-left: 1.25em;
 }
 .btn-line:before{
 	content: "";
 	position: absolute;
-	left: 0;
-	top: 0.40em;
-	width: 4.5em;
-	height: 0.30em;
+	width: 4em;
+	height: 0.2em;
 	background: white;
 	box-shadow: 
     0 2em 0 0 white,
@@ -304,7 +307,7 @@ hr{
 	padding:0px;
 }
 /* Responsive */
-	@media only screen and (min-width: 200px) and (max-width: 350px) {
+	/* @media only screen and (min-width: 200px) and (max-width: 350px) {
 		.footer-button{
 			max-width:100% !important;
 		}
@@ -328,7 +331,7 @@ hr{
 		.footer-button{
 			max-width:42% !important;
 		}
-	}
+	} */
 /* Portrait layout (default) */
 .app2 {
     background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
