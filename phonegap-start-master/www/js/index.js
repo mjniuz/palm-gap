@@ -134,12 +134,12 @@ var app = {
 			$.getJSON( rootUrl+"api/news/content/id/"+id, function( data ) {
 				$('#loading').addClass('loading');	
 				$(data).off().each(function() {
-					var output = "<h4 style='color:green;'>"+this.title+"</h4><br/><p>"+ this.content +"</p>";
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.content +"</p>";
 					var titleDetail =  "<img src='"+rootUrl+"media/"+ this.media + "' width='100%;' height='200px;' class='thumbnails'>";
 					$('#newsDetailResult').unbind().off().append(output);		
 					$('#theIMG').unbind().off().append(titleDetail);
-				}); 
-				$('#loading').removeClass('loading');		
+					$('#loading').removeClass('loading');	
+				}); 	
 			}); 
 		}
 	}

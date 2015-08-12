@@ -319,8 +319,11 @@ input, button, submit { border:none; }
 .margin-bottom{
 	margin-bottom: 60px;	
 }
+.no-margin{
+	margin:0;
+}
 #theIMG{
-	border-bottom: 2px solid green;
+	border-bottom: 2px solid #aad087;
 }
 hr{
 	margin-bottom: -10px;
