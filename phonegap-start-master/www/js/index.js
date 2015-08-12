@@ -243,7 +243,7 @@ $(document)
 	})
 	$('#register-submit').off().click(function()
 	{
-		var origin = rootUrl + 'example/user';
+		var origin = rootUrl + 'api/example/user';
 		var name = $("#name").val();
 		var phone = $("#phone").val();
 		var dataString = 'name='+name+'&phone='+phone;
@@ -285,7 +285,7 @@ $(document)
 	
 	$('#code-send').off().click(function()
 	{
-		var origin = rootUrl + 'example/codeactivation';
+		var origin = rootUrl + 'api/example/codeactivation';
 		
 		var code = $("#code").val();
 		var phoneNum = getCookie('number');
@@ -306,6 +306,7 @@ $(document)
 			}else{
 				alert('Error '+data.why);
 			}
+			$('#codesend').trigger("reset");
 		}else{
 			alert('API nya gagal');
 		}
