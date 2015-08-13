@@ -326,8 +326,10 @@ input, button, submit { border:none; }
 	border-bottom: 2px solid #aad087;
 }
 hr{
+	border-color: #aad087 !important;
 	margin-bottom: -10px;
 	padding:0px;
+	margin-top:0px !important;
 }
 /* Responsive */
 	/* @media only screen and (min-width: 200px) and (max-width: 350px) {
