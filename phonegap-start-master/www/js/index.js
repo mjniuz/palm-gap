@@ -19,10 +19,7 @@
  
 	var rootUrl = 'http://palm.dicoba.net/';
 	
-	function myMsgClickHandler(msg){
-		console.log("Clicked On notification" + JSON.stringify(msg));
-		alert(JSON.stringify(msg));
-	}
+	
 var app = {
     // Application Constructor
     initialize: function() {
@@ -46,8 +43,7 @@ var app = {
 		}
 		if(PushbotsPlugin.isAndroid()){
 			PushbotsPlugin.initializeAndroid("55c88e4717795918438b4567", "316610158270");
-		}
-						
+		}					
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -57,13 +53,39 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+		
+		makecokies('uuid',device.uuid);
+		sendUUID(device.uuid,device.model,device.platform,device.version);
+		PushbotsPlugin.onNotificationClick(myMsgClickHandler);	
         console.log('Received Event: ' + id);
-		PushbotsPlugin.onNotificationClick(myMsgClickHandler);
     }
 	
 };
 // notif event
+	function myMsgClickHandler(msg){
+		console.log("Clicked On notification" + JSON.stringify(msg));
+		alert(JSON.stringify(msg));
+	}
+	function sendUUID(uuid,model,platform,version){
+		var origin = rootUrl + 'api/example/uuidReg';
+		var dataString = 'uuid='+uuid+'&model='+model+'&platform='+platform+'&version='+version;
+		$.ajax({
+			type: "POST",
+			url: origin,
+			data: dataString,
+			cache: false,
+			success: function(data){
+				if(data.res == "ok"){ 
+					//alert(data.why);
+				}else{
+					//alert(data.why);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert('Error gak sukses '+textStatus+errorThrown+XMLHttpRequest);
+			}
+		});
+	}
 	function getCookie(name){
 		return localStorage.getItem(name);
 	}
@@ -152,23 +174,57 @@ $(document)
 		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
 		/*if(pageAct === 'news'){
 			newsAjax();		
-		}
+		} */
 		
 		if(pageAct == 'newsDetailPage'){
 			newsAjax(getCookie('newsDetailId'));		
-		}*/
-		
+		}
+		if(pageAct == 'ads'){
+			$('#Mynumber').val(getCookie('number'));
+		}
 	})
 })
 
 .on('click', '#newsDetail' ,function() {
-	newsAjax(getCookie('newsDetailId'));
-	makecokies('newsDetailId',$(this).attr('data-news'));	
+	makecokies('newsDetailId',$(this).attr('data-news'));
 	pindahPage('#newsDetailPage');
 })
 .on('click', '#goNews' ,function() {
 	pindahPage('#newsPage');
 	newsAjax();
+})
+.on('submit', '#newads' ,function(e) {
+		var origin = rootUrl + 'api/example/newads';
+		if($.trim($('#titleads').val()).length>0){
+		$.ajax({
+		type: "POST",
+		url: origin,
+		data: new FormData(this),      
+		processData: false,
+		contentType: false,
+		beforeSend: function(){ $("#processads").html('<progress></progress>'); 
+								$("#newads-submit").prop('disabled', true);
+							},
+		success: function(data){
+			if(data.res == "ok"){ 
+				alert('Sukses, Image Sukses');
+				$("#processads").html('');
+				$("#newads-submit").removeAttr('disabled');
+				$('#newads').trigger("reset");
+			}else{
+				alert(data.res);
+			}
+	  },
+	  error: function(XMLHttpRequest, textStatus, errorThrown) {
+		alert(textStatus);	
+		$("#register-submit").text('Register');
+	  }
+	});
+	e.preventDefault();
+	}else{
+		alert('please fill all field');
+	}
+	return false;
 })
 .on('pageinit', function () { 
 	// variable session
@@ -238,7 +294,7 @@ $(document)
 		pindahPage('#index');
 	})
 	$("#cookie").off().click(function(){
-		makecokies('number','081806423887');
+		makecokies('number','6281806423887');
 		makecokies('logedin',true);
 		alert(localStorage.getItem('logedin'));
 		pindahPage('#dashboard');
@@ -269,7 +325,7 @@ $(document)
 		if(data != "false"){
 			if(data.res == "ok"){ 
 				alert('Sukses, please fill the code');
-				$("#result").html('Please fill this code to box bellow '+data.code);
+				$("#result").html('Success, Please check your SMS inbox, Response ID: '+data.code);
 				makecokies('number',data.phone);
 				makecokies('logedin','false');
 				$("#register-submit").text('Register');
@@ -333,6 +389,7 @@ $(document)
 	})
   })
   
+	
 	.bind( "mobileinit", function(event) {
     $.extend($.mobile.zoom, {locked:true,enabled:false})
 })  

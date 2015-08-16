@@ -23,7 +23,9 @@
 				<div class="content-padding">
 					<form id="register">
 						<input type="text" id="name" class="input" placeholder="Your Name" required/>
-						<input type="text" id="phone" class="input" placeholder="Phone Number" required/>
+						<br/>
+						With International Code eg. 6281806423887
+						<input type="text" id="phone" class="input" placeholder="Phone Number " required/>
 					</form>
 					<center>
 						<button type="submit" form="register" id="register-submit" class="input btn-submit" value="submit" data-role="none">Submit</button>
@@ -36,6 +38,7 @@
 						<div id="deviceready">
 							<p class="event listening">Connecting to Device</p>
 							<p class="event received">Device is Ready</p>
+							<p id="uuidProperty"></p>
 						</div>
 					</div>	
 					<!-- a href="#pagetwo">Go to Dialog Page</a -->
@@ -143,14 +146,26 @@
 		  <div data-role="header" id="header">		
 		  </div>
 		  <div data-role="content" class="ui-content" id="logedin-area">
-				<div class="border-logedin">
-				  <center>
-					<h3>Title Ads Area 
-					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
-					</h3> 
-				  </center>
+				<div class="box">
+				<div class="border-over">
+					<div class="login-title"><h3 class="title-right">Ads Post New</h3></div>
 				</div>
-				
+				<div class="content-padding">
+					<form id="newads" method="post" enctype="multipart/form-data">
+						<input type="hidden" id="Mynumber" name="mynumber" class="input" required/>
+						<input type="text" id="titleads" name="titleads" class="input" placeholder="Title" required/>
+						<textarea id="descads" rows="4" name="descads" cols="50" placeholder="Description"></textarea>
+						<input type="file" id="pictads" name="pictads" class="input" placeholder="Image" required/>
+					</form>
+					<center>
+						<div id="processads"></div>
+						<button type="submit" form="newads" id="newads-submit" class="input btn-submit" value="submit" data-role="none">Post</button>
+					</center>
+					<a id="cookie">Cookie test</a> <br>
+					<a id="show">Show Cookies / Session</a> <br>
+					<a id="delete">Delete</a> 	
+				</div>
+			</div>
 		  </div>
 		  
 		  <div class="footer" data-role="footer" id="footer">
