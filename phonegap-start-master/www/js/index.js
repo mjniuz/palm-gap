@@ -86,6 +86,27 @@ var app = {
 			}
 		});
 	}
+	
+	function getMyName(number){
+		var origin = rootUrl + 'api/example/myname';
+		var dataString = 'mynumber='+number;
+		$.ajax({
+			type: "POST",
+			url: origin,
+			data: dataString,
+			cache: false,
+			success: function(data){
+				if(data.res == "ok"){ 
+					$('#MyName').html(data.why);
+				}else{
+					$('#MyName').html('error get Name');
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert('Error '+textStatus+errorThrown+XMLHttpRequest);
+			}
+		});
+	}
 	function getCookie(name){
 		return localStorage.getItem(name);
 	}
@@ -137,7 +158,82 @@ var app = {
 			return false;
 		}
 	}
-	
+	function getAdsAjax(){
+		$('#loadingAds').addClass('loading');	
+		$("#MyAdsList").html('');	
+		var number = getCookie('number');
+		var origin = rootUrl + 'api/example/myads';
+		var dataString = 'number='+number;
+		$.ajax({
+			type: "POST",
+			url: origin,
+			data: dataString,
+			cache: false,
+			success: function(data){
+				$(data.why).off().each(function() {
+					//console.log(data.why);
+					var output = "<tr id='adsID_"+ this.idads +"'><td><div style='float:left;'><a class='btn btn-default' id='deleteAds' ads-delete-id='"+this.idads+"' href='#'>Delete</a></div>" 
+					+ "<a id='getAdsDetail' href='#' data-ads='"+ this.idads + "'><div class='user-image'><img src='"+rootUrl+"media/"
+					+ this.img + "' width='100%;' height='100%;'></div><div class='left20'><h4 class='top'>" + this.title + "</div></a></td></tr>";
+					$('#MyAdsList').unbind().off().append(output);		
+				}); 
+				$('#loadingAds').removeClass('loading');		
+			}
+		}); 
+	}
+	function adsAjax(id){
+			$("#adsDetailResult").html('');	
+			$("#theAdsIMG").html('');	
+			$.getJSON( rootUrl+"api/example/adsdetail/id/"+id, function( data ) {
+				$('#loading').addClass('loading');	
+				$(data).off().each(function() {
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.desc +"</p><br /><p>By: "+ this.name+ " - "+ this.phone +"</p>";
+					var titleDetail =  "<img src='"+rootUrl+"media/"+ this.img + "' width='100%;' height='200px;' class='thumbnails'>";
+					$('#adsDetailResult').unbind().off().append(output);		
+					$('#theAdsIMG').unbind().off().append(titleDetail);
+					$('#loading').removeClass('loading');	
+				}); 	
+			}); 	
+	}
+	function delAdsAjax(id){
+		$('#loadingAds').addClass('loading');
+		var origin = rootUrl + 'api/example/delads';
+		var dataString = 'idads='+id;
+		$.ajax({
+			type: "POST",
+			url: origin,
+			data: dataString,
+			cache: false,
+			success: function(data){
+				// sukses hapus
+				$('#loadingAds').removeClass('loading');		
+			}
+		}); 
+	}
+	function getAdsListAjax(){
+		$('#loadingSpecialAds').addClass('loading');	
+		$("#AdsList").html('');	
+		var origin = rootUrl + 'api/example/adslist';
+		$.ajax({
+			type: "GET",
+			url: origin,
+			data: '',
+			cache: false,
+			success: function(data){
+			if(data.why != 'false'){
+				$(data.why).off().each(function() {
+					var output = "<hr /><li class='h100'><a id='getAdsDetail' href='#'  data-ads='"+ this.idads + "'><div class='user-image'><img src='"+rootUrl+"media/"
+					+ this.img + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p><br><br><br>"
+					+ "<p style='float:left;'>"+ this.date +"</p> </div></a></li>";
+					$('#AdsList').unbind().off().append(output);		
+				}); 
+			}else{
+				$('#AdsList').unbind().off().html('<center><span>Nothing here</span></center>');		
+			}
+				$('#loadingSpecialAds').removeClass('loading');		
+			}
+		}); 
+	}
 	function newsAjax(id){
 		if(id == undefined){
 			$('#loading').addClass('loading');	
@@ -179,15 +275,38 @@ $(document)
 		if(pageAct == 'newsDetailPage'){
 			newsAjax(getCookie('newsDetailId'));		
 		}
+		if(pageAct == 'adsDetailPage'){
+			adsAjax(getCookie('AdsDetailId'));		
+		}
 		if(pageAct == 'ads'){
 			$('#Mynumber').val(getCookie('number'));
 		}
+		if(pageAct == 'MyProfile'){
+			getMyName(getCookie('number'));
+			getAdsAjax();
+			$('#MyNumber').html(getCookie('number'));
+		}
+		if(pageAct == 'specialAds'){
+			getAdsListAjax();
+		}
 	})
 })
-
 .on('click', '#newsDetail' ,function() {
 	makecokies('newsDetailId',$(this).attr('data-news'));
 	pindahPage('#newsDetailPage');
+})
+
+.on('click', '#deleteAds' ,function() {
+	var ok = confirm("Are you sure want to delete this ads?");
+	if(ok == true){
+		delAdsAjax($(this).attr('ads-delete-id'));
+		var adsid = '#adsID_' + $(this).attr('ads-delete-id');		
+		$(adsid).hide('slow');
+	}
+})
+.on('click', '#getAdsDetail' ,function() {
+	makecokies('AdsDetailId',$(this).attr('data-ads'));
+	pindahPage('#adsDetailPage');
 })
 .on('click', '#goNews' ,function() {
 	pindahPage('#newsPage');
@@ -211,6 +330,7 @@ $(document)
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
 				$('#newads').trigger("reset");
+				pindahPage('#MyProfile');
 			}else{
 				alert(data.res);
 			}

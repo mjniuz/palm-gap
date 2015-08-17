@@ -7,8 +7,10 @@
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 		<script src="js/jquery.mobile-1.4.5.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Palm</title><meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1, user-scaleable=no">
+        <title>Palm</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1, user-scaleable=no">
     </head>
     <body id="login-view">
 		<div data-role="page" id="index">
@@ -34,23 +36,18 @@
 					<center>
 						<a href="#" id="input-confirmation" class="input btn-submit" style="color:white;">Confirmation</a>
 					</center>
-					<div class="app blink">
-						<div id="deviceready">
-							<p class="event listening">Connecting to Device</p>
-							<p class="event received">Device is Ready</p>
-							<p id="uuidProperty"></p>
-						</div>
-					</div>	
+					<p id="uuidProperty"></p>
 					<!-- a href="#pagetwo">Go to Dialog Page</a -->
 					<a id="cookie">Cookie test</a> <br>
 					<a id="show">Show Cookies / Session</a> <br>
-					<a id="delete">Delete</a> 			
+					<a id="delete">Delete</a> 
 			<script type="text/javascript" src="cordova.js"></script>
 			<script type="text/javascript" src="js/index.js"></script>
 			<script type="text/javascript">
 				app.initialize();
 			</script>
 				</div>
+				<br>
 			</div>
 		  </div>
 		  
@@ -126,7 +123,7 @@
 							<div class="menu-null"></div>
 							<span class="menu-b">Logout &nbsp;</span>
 						</a>
-						<a href="#" id="testCookie">Test</a>
+						<a href="#MyProfile" >MyProfile</a>
 					</li>
 					<li class="center-right">
 						<a href="#" id="back">
@@ -140,7 +137,47 @@
 		  <div class="footer" data-role="footer" id="footer">
 		  </div>
 		</div> 
-		
+		<!-- My Profile -->
+		<div data-role="page" id="MyProfile">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content" id="MyProfile-area">
+				<div class="border-logedin">
+				  <center>
+					<h3 class="no-margin">My Profile 
+					<a href="#" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+					</h3> 
+				  </center>
+				</div>
+				<br />
+				<ul class="ulright">
+				<center><div id="loading"></div></center>
+				<div class="panel panel-default">
+				  <div class="panel-heading">My Information</div>
+				  <table class="table">
+					<tr>
+						<td>Name : </td>
+						<td><div id="MyName"></div></td>
+					</tr>		
+					<tr>
+						<td>Number Phone : </td>
+						<td><div id="MyNumber"></div></td>
+					</tr>			
+				  </table>
+				</div>
+				<div class="panel panel-default">
+				  <div class="panel-heading">My Ads</div>
+				  <table class="table" >
+					<tbody id="MyAdsList">
+					<div id="loadingAds"></div>
+					</tbody>
+				  </table>
+				</div>
+				</ul>
+		  </div>		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
 		<!-- Page Ads -->
 		<div data-role="page" id="ads">
 		  <div data-role="header" id="header">		
@@ -161,8 +198,49 @@
 						<div id="processads"></div>
 						<button type="submit" form="newads" id="newads-submit" class="input btn-submit" value="submit" data-role="none">Post</button>
 					</center>
+					<br />
 				</div>
 			</div>
+		  </div>
+		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		<!-- Special Ads -->
+		<div data-role="page" id="specialAds">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content" id="specialAds-area">
+				<div class="border-logedin">
+				  <center>
+					<h3 class="no-margin">Special Ads
+					<a href="#" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+					</h3> 
+					<h4 class="no-margin"><a class="green" href="#ads">Add Your Ads</a></h4>
+				  </center>
+				</div>
+				<br />
+				<br />
+				<ul class="ulright">
+				<center>
+					<div id="loadingSpecialAds"></div>
+				</center>
+				<div id="AdsList" class="contentDetail"></div>
+		  </div>		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		<!-- Page Ads Detail -->
+		<div data-role="page" id="adsDetailPage">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content no-padding" id="adsDetailArea">
+				  <center>
+					<div id="theAdsIMG"></div>
+					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+				  </center>
+				<div id="loading"></div>
+				<div id="adsDetailResult" class="contentDetail"></div>
 		  </div>
 		  
 		  <div class="footer" data-role="footer" id="footer">
@@ -175,11 +253,12 @@
 		  <div data-role="content" class="ui-content" id="logedin-area">
 				<div class="border-logedin">
 				  <center>
-					<h3 class="no-margin">«·√Œ»«—
+					<h3 class="no-margin">«·√Œ»«— 
 					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
 					</h3> 
 				  </center>
 				</div>
+				<br style="margin-bottom:15px;">
 				<ul class="ulright">
 				<center><div id="loading"></div></center>
 				<div id="summary"></div>
