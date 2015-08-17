@@ -333,7 +333,6 @@ $(document)
 				pindahPage('#MyProfile');
 			}else{
 				alert('Please fill all field');
-				$('#newads').trigger("reset");
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
 			}
