@@ -332,7 +332,10 @@ $(document)
 				$('#newads').trigger("reset");
 				pindahPage('#MyProfile');
 			}else{
-				alert(data.res);
+				alert('Please fill all field');
+				$('#newads').trigger("reset");
+				$("#processads").html('');
+				$("#newads-submit").removeAttr('disabled');
 			}
 	  },
 	  error: function(XMLHttpRequest, textStatus, errorThrown) {
