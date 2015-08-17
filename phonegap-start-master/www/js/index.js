@@ -489,11 +489,13 @@ $(document)
 		success: function(data){
 		if(data != "false"){
 			if(data.res == "ok"){ 
-				alert('Sukses, Anda sudah login');			
+				alert('Success Logedin');			
 				makecokies('logedin','true');
 				pindahPage('#dashboard');
+				$("#code-send").text('Confirm');
 			}else{
 				alert('Error '+data.why);
+				$("#code-send").text('Confirm');
 			}
 			$('#codesend').trigger("reset");
 		}else{
