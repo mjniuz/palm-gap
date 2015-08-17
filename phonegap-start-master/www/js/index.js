@@ -39,10 +39,10 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 		if(PushbotsPlugin.isiOS()){
-			PushbotsPlugin.initializeiOS("55c88e4717795918438b4567");
+			PushbotsPlugin.initializeiOS("55d165de17795918468b4569");
 		}
 		if(PushbotsPlugin.isAndroid()){
-			PushbotsPlugin.initializeAndroid("55c88e4717795918438b4567", "316610158270");
+			PushbotsPlugin.initializeAndroid("55d165de17795918468b4569", "492376382151");
 		}					
     },
     // Update DOM on a Received Event
