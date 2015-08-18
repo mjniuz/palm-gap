@@ -241,7 +241,8 @@ var app = {
 			$.getJSON( rootUrl+"api/news/category/id/1", function( data ) {
 				$(data).off().each(function() {
 					var output = "<hr /><li class='h100'><a id='newsDetail' href='#' data-news='"+ this.id_news + "'><div class='user-image'><img src='"+rootUrl+"media/"
-					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "</div></a></li>";
+					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<br /><p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p>"
+					+ "</div></a></li></div></a></li>";
 					$('#summary').unbind().off().append(output);		
 				}); 
 				$('#loading').removeClass('loading');		
@@ -262,6 +263,30 @@ var app = {
 		}
 	}
 	
+	function jobsAjax(id){
+		if(id == undefined){
+			$('#loading').addClass('loading');	
+			$("#jobsSummary").html('');	
+			$.getJSON( rootUrl+"api/news/category/id/2", function( data ) {
+				$(data).off().each(function() {
+					var output = "<hr /><li class='h100'><a id='jobDetail' href='#' data-job='"+ this.id_news + "'><div style='margin-right:5px;'><h4 class='top'>" + this.title
+					+ "</div></a></li></div></a></li>";
+					$('#jobsSummary').unbind().off().append(output);		
+				}); 
+				$('#loading').removeClass('loading');		
+			}); 
+		}else{			
+			$("#jobsDetailResult").html('');	
+			$.getJSON( rootUrl+"api/news/content/id/"+id, function( data ) {
+				$('#loading').addClass('loading');	
+				$(data).off().each(function() {
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.content +"</p>";
+					$('#jobsDetailResult').unbind().off().append(output);
+					$('#loading').removeClass('loading');	
+				}); 	
+			}); 
+		}
+	}
 	
 (function($){
 $(document)
@@ -275,21 +300,34 @@ $(document)
 		if(pageAct == 'newsDetailPage'){
 			newsAjax(getCookie('newsDetailId'));		
 		}
+		if(pageAct == 'jobDetailPage'){
+			jobsAjax(getCookie('jobDetailId'));		
+		}
 		if(pageAct == 'adsDetailPage'){
 			adsAjax(getCookie('AdsDetailId'));		
 		}
 		if(pageAct == 'ads'){
 			$('#Mynumber').val(getCookie('number'));
 		}
-		if(pageAct == 'MyProfile'){
+		/*if(pageAct == 'MyProfile'){
 			getMyName(getCookie('number'));
 			getAdsAjax();
 			$('#MyNumber').html(getCookie('number'));
-		}
-		if(pageAct == 'specialAds'){
+		}*/
+		/*if(pageAct == 'specialAds'){
 			getAdsListAjax();
-		}
+		}*/  
 	})
+})
+.on('click', '#go-myprofile' ,function() {
+	pindahPage('#MyProfile');
+	getMyName(getCookie('number'));
+	getAdsAjax();
+	$('#MyNumber').html(getCookie('number'));
+})
+.on('click', '#menu-ads' ,function() {
+	getAdsListAjax();
+	pindahPage('#specialAds');
 })
 .on('click', '#newsDetail' ,function() {
 	makecokies('newsDetailId',$(this).attr('data-news'));
@@ -311,6 +349,15 @@ $(document)
 .on('click', '#goNews' ,function() {
 	pindahPage('#newsPage');
 	newsAjax();
+})
+.on('click', '#go-jobs' ,function() {
+	pindahPage('#jobsPage');
+	jobsAjax();
+})
+
+.on('click', '#jobDetail' ,function() {
+	makecokies('jobDetailId',$(this).attr('data-job'));
+	pindahPage('#jobDetailPage');
 })
 .on('submit', '#newads' ,function(e) {
 		var origin = rootUrl + 'api/example/newads';
@@ -390,13 +437,10 @@ $(document)
 	})
 	
 	$("#go-ads").off().click(function(){
-		pindahPage('#ads');
+		getAdsListAjax();
+		pindahPage('#specialAds');
 	})	
-	
-	$("#go-ads").off().click(function(){
-		pindahPage('#ads');
-	})	
-	
+
 	$("#input-confirmation").off().click(function(){
 		pindahPage('#confirm-dialog');
 	})
@@ -507,7 +551,7 @@ $(document)
 	  }
 	});
 	}else{
-		alert('please fill all field');
+		alert('please fill all field or register your number first');
 	}
 	return false;
 	})
