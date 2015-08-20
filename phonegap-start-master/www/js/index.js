@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -195,6 +195,34 @@ var app = {
 				}); 	
 			}); 	
 	}
+	function comAjax(id){
+			$("#comDetailResult").html('');	
+			$("#theComIMG").html('');	
+			$.getJSON( rootUrl+"api/example/comdetail/id/"+id, function( data ) {
+				$('#loading').addClass('loading');	
+				$(data).off().each(function() {
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.content +"</p><br />";
+					var titleDetail =  "<img src='"+rootUrl+"media/"+ this.media + "' width='100%;' height='200px;' class='thumbnails'>";
+					$('#comDetailResult').unbind().off().append(output);		
+					$('#theComIMG').unbind().off().append(titleDetail);
+					$('#loading').removeClass('loading');	
+				}); 	
+			}); 	
+	}
+	function promoAjax(id){
+			$("#promoDetailResult").html('');	
+			$("#thePromoIMG").html('');	
+			$.getJSON( rootUrl+"api/example/promodetail/id/"+id, function( data ) {
+				$('#loading').addClass('loading');	
+				$(data).off().each(function() {
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.content +"</p><br />";
+					var titleDetail =  "<img src='"+rootUrl+"media/"+ this.media + "' width='100%;' height='200px;' class='thumbnails'>";
+					$('#promoDetailResult').unbind().off().append(output);		
+					$('#thePromoIMG').unbind().off().append(titleDetail);
+					$('#loading').removeClass('loading');	
+				}); 	
+			}); 	
+	}
 	function delAdsAjax(id){
 		$('#loadingAds').addClass('loading');
 		var origin = rootUrl + 'api/example/delads';
@@ -207,6 +235,54 @@ var app = {
 			success: function(data){
 				// sukses hapus
 				$('#loadingAds').removeClass('loading');		
+			}
+		}); 
+	}
+	function getPromoListAjax(){
+		$('#loadingPromoAds').addClass('loading');	
+		$("#promoList").html('');	
+		var origin = rootUrl + 'api/example/promo';
+		$.ajax({
+			type: "GET",
+			url: origin,
+			data: '',
+			cache: false,
+			success: function(data){
+			if(data.why != 'false'){
+				$(data.why).off().each(function() {
+					var output = "<hr /><li class='h100'><a id='getPromoDetail' href='#'  data-promo='"+ this.id_promo + "'><div class='user-image'><img src='"+rootUrl+"media/"
+					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p><br><br><br>"
+					+ "<p style='float:left;'>"+ this.date +"</p> </div></a></li>";
+					$('#promoList').unbind().off().append(output);		
+				}); 
+			}else{
+				$('#promoList').unbind().off().html('<center><span>Nothing here</span></center>');		
+			}
+				$('#loadingPromoAds').removeClass('loading');		
+			}
+		}); 
+	}
+	function getComListAjax(){
+		$('#loadingComercialAds').addClass('loading');	
+		$("#comercialList").html('');	
+		var origin = rootUrl + 'api/example/comercial';
+		$.ajax({
+			type: "GET",
+			url: origin,
+			data: '',
+			cache: false,
+			success: function(data){
+			if(data.why != 'false'){
+				$(data.why).off().each(function() {
+					var output = "<hr /><li class='h100'><a id='getComercialDetail' href='#'  data-com='"+ this.id_comercial + "'><div class='user-image'><img src='"+rootUrl+"media/"
+					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p><br><br><br>"
+					+ "<p style='float:left;'>"+ this.time +"</p> </div></a></li>";
+					$('#comercialList').unbind().off().append(output);		
+				}); 
+			}else{
+				$('#comercialList').unbind().off().html('<center><span>Nothing here</span></center>');		
+			}
+				$('#loadingComercialAds').removeClass('loading');		
 			}
 		}); 
 	}
@@ -267,9 +343,10 @@ var app = {
 		if(id == undefined){
 			$('#loading').addClass('loading');	
 			$("#jobsSummary").html('');	
-			$.getJSON( rootUrl+"api/news/category/id/2", function( data ) {
-				$(data).off().each(function() {
-					var output = "<hr /><li class='h100'><a id='jobDetail' href='#' data-job='"+ this.id_news + "'><div style='margin-right:5px;'><h4 class='top'>" + this.title
+			$.getJSON( rootUrl+"api/example/job", function( data ) {
+				$(data.why).off().each(function() {
+					var output = "<hr /><li class='h100'><a id='jobDetail' href='#' data-job='"+ this.id_job + "'><div style='margin-right:5px;'><h4 class='top'>" + this.title +
+					"<br /><p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p>"
 					+ "</div></a></li></div></a></li>";
 					$('#jobsSummary').unbind().off().append(output);		
 				}); 
@@ -277,7 +354,7 @@ var app = {
 			}); 
 		}else{			
 			$("#jobsDetailResult").html('');	
-			$.getJSON( rootUrl+"api/news/content/id/"+id, function( data ) {
+			$.getJSON( rootUrl+"api/example/jobdetail/id/"+id, function( data ) {
 				$('#loading').addClass('loading');	
 				$(data).off().each(function() {
 					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.content +"</p>";
@@ -301,22 +378,21 @@ $(document)
 			newsAjax(getCookie('newsDetailId'));		
 		}
 		if(pageAct == 'jobDetailPage'){
+			//alert(getCookie('jobDetailId'));
 			jobsAjax(getCookie('jobDetailId'));		
 		}
+		if(pageAct == 'comDetailPage'){
+			comAjax(getCookie('comDetailId'));		
+		} 
+		if(pageAct == 'promoDetailPage'){
+			promoAjax(getCookie('promoDetailId'));		
+		} 
 		if(pageAct == 'adsDetailPage'){
 			adsAjax(getCookie('AdsDetailId'));		
 		}
 		if(pageAct == 'ads'){
 			$('#Mynumber').val(getCookie('number'));
 		}
-		/*if(pageAct == 'MyProfile'){
-			getMyName(getCookie('number'));
-			getAdsAjax();
-			$('#MyNumber').html(getCookie('number'));
-		}*/
-		/*if(pageAct == 'specialAds'){
-			getAdsListAjax();
-		}*/  
 	})
 })
 .on('click', '#go-myprofile' ,function() {
@@ -328,6 +404,15 @@ $(document)
 .on('click', '#menu-ads' ,function() {
 	getAdsListAjax();
 	pindahPage('#specialAds');
+})
+
+.on('click', '#menu-special' ,function() {
+	getAdsListAjax();
+	pindahPage('#specialAds');
+})
+.on('click', '#menu-promo' ,function() {
+	getPromoListAjax();
+	pindahPage('#promoAds');
 })
 .on('click', '#newsDetail' ,function() {
 	makecokies('newsDetailId',$(this).attr('data-news'));
@@ -341,6 +426,16 @@ $(document)
 		var adsid = '#adsID_' + $(this).attr('ads-delete-id');		
 		$(adsid).hide('slow');
 	}
+})
+.on('click', '#getPromoDetail' ,function() {
+	//alert($(this).attr('data-com'));
+	makecokies('promoDetailId',$(this).attr('data-promo'));
+	pindahPage('#promoDetailPage');
+})
+.on('click', '#getComercialDetail' ,function() {
+	//alert($(this).attr('data-com'));
+	makecokies('comDetailId',$(this).attr('data-com'));
+	pindahPage('#comDetailPage');
 })
 .on('click', '#getAdsDetail' ,function() {
 	makecokies('AdsDetailId',$(this).attr('data-ads'));
@@ -424,8 +519,7 @@ $(document)
 					alert('You need to log in');				
 					pindahPage('#index');
 				})
-			});
-		
+			});		
 	}else{
 		$("#layout-footer").off().empty();
 		$("#" + event.target.id).find("[data-role=footer]").off().load("footer.html", function(){
@@ -436,11 +530,21 @@ $(document)
 		$("#" + event.target.id).find("[data-role=header]").off().load("header.html", function(){    });		
 	})
 	
+	$("#go-promo").off().click(function(){
+		getPromoListAjax();
+		pindahPage('#promoAds');
+	})	
+	
+	$("#go-comercial").off().click(function(){
+		getComListAjax();
+		pindahPage('#comercialAds');
+	})	
+	
 	$("#go-ads").off().click(function(){
 		getAdsListAjax();
 		pindahPage('#specialAds');
 	})	
-
+	
 	$("#input-confirmation").off().click(function(){
 		pindahPage('#confirm-dialog');
 	})

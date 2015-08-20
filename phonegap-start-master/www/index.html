@@ -91,44 +91,43 @@
 				</div>
 				<ul class="col-2 inline">
 					<li class="center-left">
-						<a href="#" id="go-jobs">
+						<a href="#" id="go-ads">
 							<div class="menu-loud"></div>
-							<span class="menu-b"> Jobs </span>
+							<span class="menu-b"> ≈Ÿ‰«Ê«  Œ«’…  </span>
 						</a>
 					</li>
 					<li class="center-right">
-						<a id="go-ads" href="#">
+						<a id="go-comercial" href="#">
 							<div class="menu-tv"></div>
-							<span class="menu-b"> Text Menu </span>
+							<span class="menu-b">  ≈Ÿ‰«Ê«   Ã«—Í…</span>
 						</a>
 					</li>
 				</ul>
 				<ul class="col-2 inline">
 					<li class="center-left">
-						<a href="">
+						<a href="#" id="go-promo">
 							<div class="menu-lab"></div>
-							<span class="menu-b"> Text Menu </span>
+							<span class="menu-b"> «‰Ÿ—Ë÷ </span>
 						</a>
 					</li>
 					<li class="center-right">
 						<a href="#" id="goNews">
 							<div class="menu-news"></div>
-							<span class="menu-b"> Text Menu </span>
+							<span class="menu-b"> «‰√Œ»«— </span>
 						</a>
 					</li>
 				</ul>
 				<ul class="col-2 inline">
 					<li class="center-left">
-						<a href="#" id="logout">
+						<a href="#" id="go-myprofile">
 							<div class="menu-null"></div>
-							<span class="menu-b">Logout &nbsp;</span>
+							<span class="menu-b">My Profile</span>
 						</a>
-						<a id="go-myprofile" href="#" >MyProfile</a>
 					</li>
 					<li class="center-right">
-						<a href="#" id="back">
+						<a href="#" id="go-jobs">
 							<div class="menu-search"></div>
-							<span class="menu-b"> Text Menu </span>
+							<span class="menu-b"> Ëÿ«∆· </span>
 						</a>
 					</li>
 				</ul>
@@ -162,7 +161,11 @@
 					<tr>
 						<td>Number Phone : </td>
 						<td><div id="MyNumber"></div></td>
-					</tr>			
+					</tr>	
+					<tr>
+						<td>Logout From Here : </td>
+						<td><a id="logout" href="#" >Logout</a></td>
+					</tr>
 				  </table>
 				</div>
 				<div class="panel panel-default">
@@ -204,6 +207,86 @@
 					<br />
 				</div>
 			</div>
+		  </div>
+		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		<!-- Comercial Ads -->
+		<div data-role="page" id="comercialAds">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content" id="comercialAds-area">
+				<div class="border-logedin">
+				  <center>
+					<h3 class="no-margin">Comercial Ads
+					<a href="#" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+					</h3> 
+					<h4 class="no-margin"><span class="green">Comerical Ads</span></h4>
+				  </center>
+				</div>
+				<br />
+				<br />
+				<ul class="ulright">
+				<center>
+					<div id="loadingComercialAds"></div>
+				</center>
+				<div id="comercialList" class="contentDetail"></div>
+		  </div>		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		<!-- Page Ads Detail -->
+		<div data-role="page" id="comDetailPage">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content no-padding" id="comDetailPage">
+				  <center>
+					<div id="theComIMG"></div>
+					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+				  </center>
+				<div id="loading"></div>
+				<div id="comDetailResult" class="contentDetail"></div>
+		  </div>
+		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		<!-- Promo Ads -->
+		<div data-role="page" id="promoAds">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content" id="promoAds-area">
+				<div class="border-logedin">
+				  <center>
+					<h3 class="no-margin">Promo
+					<a href="#" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+					</h3> 
+					<h4 class="no-margin"><span class="green">Promo Desc</span></h4>
+				  </center>
+				</div>
+				<br />
+				<br />
+				<ul class="ulright">
+				<center>
+					<div id="loadingPromoAds"></div>
+				</center>
+				<div id="promoList" class="contentDetail"></div>
+		  </div>		  
+		  <div class="footer" data-role="footer" id="footer">
+		  </div>
+		</div> 
+		<!-- Page Promo Detail -->
+		<div data-role="page" id="promoDetailPage">
+		  <div data-role="header" id="header">		
+		  </div>
+		  <div data-role="content" class="ui-content no-padding" id="promoDetailPage">
+				  <center>
+					<div id="thePromoIMG"></div>
+					<a href="#dashboard" class="ui-btn ui-icon-back ui-btn-icon-left al-btn" data-rel="back">&nbsp;</a>
+				  </center>
+				<div id="loading"></div>
+				<div id="promoDetailResult" class="contentDetail"></div>
 		  </div>
 		  
 		  <div class="footer" data-role="footer" id="footer">
