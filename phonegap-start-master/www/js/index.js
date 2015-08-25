@@ -38,12 +38,6 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-		if(PushbotsPlugin.isiOS()){
-			PushbotsPlugin.initializeiOS("55d165de17795918468b4569");
-		}
-		if(PushbotsPlugin.isAndroid()){
-			PushbotsPlugin.initializeAndroid("55d165de17795918468b4569", "492376382151");
-		}					
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -53,6 +47,13 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+		
+		if(PushbotsPlugin.isiOS()){
+			PushbotsPlugin.initializeiOS("55d165de17795918468b4569");
+		}
+		if(PushbotsPlugin.isAndroid()){
+			PushbotsPlugin.initializeAndroid("55d165de17795918468b4569", "492376382151");
+		}					
 		
 		makecokies('uuid',device.uuid);
 		sendUUID(device.uuid,device.model,device.platform,device.version);
