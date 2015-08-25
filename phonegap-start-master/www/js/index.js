@@ -17,8 +17,7 @@
  * under the License.
  */
  
-	var rootUrl = 'http://palm.dicoba.net/';
-	
+var rootUrl = 'http://palm.dicoba.net/';
 	
 var app = {
     // Application Constructor
@@ -264,7 +263,7 @@ var app = {
 					$('#promoList').unbind().off().append(output);		
 				}); 
 			}else{
-				$('#promoList').unbind().off().html('<center><span>Nothing here</span></center>');		
+				$('#promoList').unbind().off().html('<center><span>لا شيء هنا</span></center>');		
 			}
 				$('#loadingPromoAds').removeClass('loading');		
 			}
@@ -288,7 +287,7 @@ var app = {
 					$('#comercialList').unbind().off().append(output);		
 				}); 
 			}else{
-				$('#comercialList').unbind().off().html('<center><span>Nothing here</span></center>');		
+				$('#comercialList').unbind().off().html('<center><span>لا شيء هنا</span></center>');		
 			}
 				$('#loadingComercialAds').removeClass('loading');		
 			}
@@ -428,7 +427,7 @@ $(document)
 })
 
 .on('click', '#deleteAds' ,function() {
-	var ok = confirm("Are you sure want to delete this ads?");
+	var ok = confirm("هل تريد بالتأكيد حذف هذه الإعلانات؟");
 	if(ok == true){
 		delAdsAjax($(this).attr('ads-delete-id'));
 		var adsid = '#adsID_' + $(this).attr('ads-delete-id');		
@@ -476,25 +475,25 @@ $(document)
 							},
 		success: function(data){
 			if(data.res == "ok"){ 
-				alert('Sukses, Image Sukses');
+				alert('نجاح');
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
 				$('#newads').trigger("reset");
 				pindahPage('#MyProfile');
 			}else{
-				alert('Please fill all field');
+				alert('يرجى ملء كل مجال');
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
 			}
 	  },
 	  error: function(XMLHttpRequest, textStatus, errorThrown) {
 		alert(textStatus);	
-		$("#register-submit").text('Register');
+		$("#register-submit").text('تسجيل');
 	  }
 	});
 	e.preventDefault();
 	}else{
-		alert('please fill all field');
+		alert('يرجى ملء كل مجال');
 	}
 	return false;
 })
@@ -504,7 +503,7 @@ $(document)
 	$('[data-role=page]').on('pageshow', function (event, ui) {
 		var pageAct = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
 		if(isLoged() && pageAct === 'index'){
-			alert('Loged In');
+			alert('تسجيل الدخول');
 			pindahPage('#dashboard');
 		}
 		
@@ -512,19 +511,19 @@ $(document)
 			//alert(isLoged());
 			$("#" + event.target.id).find("[data-role=footer]").off().load("footer-logout.html", function(){
 				$("#log1").off().click(function(){	
-					alert('You need to log in');					
+					alert('تحتاج إلى تسجيل الدخول');					
 					pindahPage('#index');
 				})
 				$("#log2").off().click(function(){	
-					alert('You need to log in');				
+					alert('تحتاج إلى تسجيل الدخول');				
 					pindahPage('#index');
 				})
 				$("#log3").off().click(function(){	
-					alert('You need to log in');				
+					alert('تحتاج إلى تسجيل الدخول');				
 					pindahPage('#index');
 				})
 				$("#log4").off().click(function(){	
-					alert('You need to log in');				
+					alert('تحتاج إلى تسجيل الدخول');				
 					pindahPage('#index');
 				})
 			});		
@@ -598,32 +597,31 @@ $(document)
 		url: origin,
 		data: dataString,
 		cache: false,
-		beforeSend: function(){ $("#register-submit").text('Connecting...');},
+		beforeSend: function(){ $("#register-submit").text('معالجة البيانات');},
 		success: function(data){
 		if(data != "false"){
 			if(data.res == "ok"){ 
-				alert('Sukses, please fill the code');
-				$("#result").html('Success, Please check your SMS inbox, Response ID: '+data.code);
+				alert('نجاح، يرجى التحقق من البريد الوارد رسالتك');
+				//$("#result").html('Success, Please check your SMS inbox');
 				makecokies('number',data.phone);
 				makecokies('logedin','false');
-				$("#register-submit").text('Register');
+				$("#register-submit").text('تسجيل');
 				$('#register').trigger("reset");
 				//$.mobile.changePage("#logedin");
 			}else{
 				alert('Error');
 			}
 		}else{
-			$("#hasil").html("<span style='color:#cc0000'>Error:</span> Invalid email and password. ");
 			//alert('API nya gagal');
 		}
 	  },
 	  error: function(XMLHttpRequest, textStatus, errorThrown) {
 		alert(textStatus);	
-		$("#register-submit").text('Register');
+		$("#register-submit").text('تسجيل');
 	  }
 	});
 	}else{
-		alert('please fill all field');
+		alert('يرجى ملء كل مجال');
 	}
 	return false;
 	})
@@ -641,17 +639,17 @@ $(document)
 		url: origin,
 		data: dataString,
 		cache: false,
-		beforeSend: function(){ $("#code-send").text('Connecting...');},
+		beforeSend: function(){ $("#code-send").text('معالجة البيانات');},
 		success: function(data){
 		if(data != "false"){
 			if(data.res == "ok"){ 
 				alert('Success Logedin');			
 				makecokies('logedin','true');
 				pindahPage('#dashboard');
-				$("#code-send").text('Confirm');
+				$("#code-send").text('تفعيل');
 			}else{
-				alert('Error '+data.why);
-				$("#code-send").text('Confirm');
+				alert(data.why);
+				$("#code-send").text('تفعيل');
 			}
 			$('#codesend').trigger("reset");
 		}else{
@@ -663,7 +661,7 @@ $(document)
 	  }
 	});
 	}else{
-		alert('please fill all field or register your number first');
+		alert('يرجى تعبئة جميع الحقول أو تسجيل رقم هاتفك لأول مرة');
 	}
 	return false;
 	})
