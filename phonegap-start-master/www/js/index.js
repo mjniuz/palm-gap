@@ -194,7 +194,7 @@ var app = {
 			$.getJSON( rootUrl+"api/example/adsdetail/id/"+id, function( data ) {
 				$('#loading').addClass('loading');	
 				$(data).off().each(function() {
-					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.desc +"</p><br /><p>By: "+ this.name+ " - "+ this.phone +"</p>";
+					var output = "<h4 style='color:green;'>"+this.title+"</h4><p>"+ this.desc +"</p><br /><p>من قبل: "+ this.name+ " - "+ this.phone +"</p>";
 					var titleDetail =  "<img src='"+rootUrl+"media/"+ this.img + "' width='100%;' height='200px;' class='thumbnails'>";
 					$('#adsDetailResult').unbind().off().append(output);		
 					$('#theAdsIMG').unbind().off().append(titleDetail);
@@ -607,6 +607,7 @@ $(document)
 				makecokies('logedin','false');
 				$("#register-submit").text('تسجيل');
 				$('#register').trigger("reset");
+				pindahPage('#confirm-dialog');
 				//$.mobile.changePage("#logedin");
 			}else{
 				alert('Error');
@@ -643,7 +644,7 @@ $(document)
 		success: function(data){
 		if(data != "false"){
 			if(data.res == "ok"){ 
-				alert('Success Logedin');			
+				alert('نجاح، وفي تسجيل');			
 				makecokies('logedin','true');
 				pindahPage('#dashboard');
 				$("#code-send").text('تفعيل');
