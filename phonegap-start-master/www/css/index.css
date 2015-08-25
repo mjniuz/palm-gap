@@ -141,7 +141,7 @@ li.menu1 {
     width: 35px;
 }
 .icon4{
-	background-image: url("../img/white/icon4.png");
+	background-image: url("../img/white/iconhome.png");
     background-repeat: no-repeat;
     background-size: 40px 40px;
     height: 35px;
@@ -273,7 +273,7 @@ input, button, submit { border:none; }
     width: 80px;
 }
 .menu-null {
-	background-image: url("../img/iconnull.png"); 
+	background-image: url("../img/iconprofile.png"); 
     background-repeat: no-repeat;
 	background-position:85% 0%;
 	background-size: 85px 100px;
@@ -323,6 +323,10 @@ input, button, submit { border:none; }
 }
 .no-margin{
 	margin:0;
+}
+.mydate {
+	direction: ltr !important;
+	float:left;
 }
 #theIMG{
 	border-bottom: 2px solid #aad087;

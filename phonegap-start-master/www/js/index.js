@@ -159,6 +159,13 @@ var app = {
 			return false;
 		}
 	}
+	var mydate = function(input){
+		var d = new Date(Date.parse(input.replace(/-/g, "/")));
+		var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var date =  d.getDay() + " " + month[d.getMonth()]  + ", " + d.getFullYear() ;
+		var time = d.toLocaleTimeString().toLowerCase().replace(/([\d]+:[\d]+):[\d]+(\s\w+)/g, "$1$2");
+		return (date);  
+	};
 	function getAdsAjax(){
 		$('#loadingAds').addClass('loading');	
 		$("#MyAdsList").html('');	
@@ -253,7 +260,7 @@ var app = {
 				$(data.why).off().each(function() {
 					var output = "<hr /><li class='h100'><a id='getPromoDetail' href='#'  data-promo='"+ this.id_promo + "'><div class='user-image'><img src='"+rootUrl+"media/"
 					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p><br><br><br>"
-					+ "<p style='float:left;'>"+ this.date +"</p> </div></a></li>";
+					+ "<p class='mydate'>"+ mydate(this.date) +"</p> </div></a></li>";
 					$('#promoList').unbind().off().append(output);		
 				}); 
 			}else{
@@ -277,7 +284,7 @@ var app = {
 				$(data.why).off().each(function() {
 					var output = "<hr /><li class='h100'><a id='getComercialDetail' href='#'  data-com='"+ this.id_comercial + "'><div class='user-image'><img src='"+rootUrl+"media/"
 					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p><br><br><br>"
-					+ "<p style='float:left;'>"+ this.time +"</p> </div></a></li>";
+					+ "<p class='mydate' >"+ mydate(this.time) +"</p> </div></a></li>";
 					$('#comercialList').unbind().off().append(output);		
 				}); 
 			}else{
@@ -301,7 +308,7 @@ var app = {
 				$(data.why).off().each(function() {
 					var output = "<hr /><li class='h100'><a id='getAdsDetail' href='#'  data-ads='"+ this.idads + "'><div class='user-image'><img src='"+rootUrl+"media/"
 					+ this.img + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p><br><br><br>"
-					+ "<p style='float:left;'>"+ this.date +"</p> </div></a></li>";
+					+ "<p class='mydate'>"+ mydate(this.date) +"</p> </div></a></li>";
 					$('#AdsList').unbind().off().append(output);		
 				}); 
 			}else{
