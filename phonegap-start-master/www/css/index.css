@@ -78,6 +78,14 @@ body {
     margin-left: 5px;
     width: 67px;
 }
+.img-adv {
+	height: 40px;
+    margin-top: -25px;
+    width: 100%;
+}
+.m17{
+	margin-top: -17px;
+}
 .header-bottom {
 	background: #6CAB38;
 	height: 5px;

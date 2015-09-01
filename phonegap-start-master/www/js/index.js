@@ -408,7 +408,10 @@ var app = {
 			}
 		}); 	       
     }
-	
+	function openAdv(url){
+		cordova.InAppBrowser.open(encodeURI(url), '_blank', 'location=yes');
+		$("#advertise").html("").removeClass("m17");
+	}
 (function($){
 $(document)
 .ready(function() {
@@ -438,6 +441,12 @@ $(document)
 			$('#Mynumber').val(getCookie('number'));
 		}
 	})
+})
+
+.on('click', '#openOnBrowser' ,function() {
+	var url = $(this).attr('data-url');
+	//alert(url);
+	openAdv(url);
 })
 
 .on('click', '#shareNow' ,function() {
@@ -571,7 +580,7 @@ $(document)
 	}else{
 		$("#layout-footer").off().empty();
 		$("#" + event.target.id).find("[data-role=footer]").off().load("footer.html", function(){
-			
+			$("#advertise").html("<a href='#' data-url='http://www.google.com' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/b6f9f-banner3.jpg'></a>");
 		});		
 	}
 		event.preventDefault();
