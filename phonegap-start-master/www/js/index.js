@@ -386,7 +386,7 @@ var app = {
 				html: html
 		});
 		$.getJSON(  rootUrl+"api/example/share", {
-			tags: "mount rainier",
+			tags: "",
 			tagmode: "any",
 			format: "json"
 		})
@@ -408,6 +408,18 @@ var app = {
 			}
 		}); 	       
     }
+	// get banner ads
+	function getbanner(){
+		$.getJSON(  rootUrl+"api/example/advertise", {
+			cache: true,
+			tags: "",
+			tagmode: "any",
+			format: "json"
+		})
+		.done(function( data ) {
+			$("#advertise").html("<a href='#' data-url='"+data.link+"' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/"+data.img+"'></a>").addClass("m17");
+		}); 	       
+    }
 	function openAdv(url){
 		cordova.InAppBrowser.open(encodeURI(url), '_blank', 'location=yes');
 		$("#advertise").html("").removeClass("m17");
@@ -420,7 +432,7 @@ $(document)
 		/*if(pageAct === 'news'){
 			newsAjax();		
 		} */
-		
+		getbanner();
 		if(pageAct == 'newsDetailPage'){
 			newsAjax(getCookie('newsDetailId'));		
 		}
@@ -580,7 +592,7 @@ $(document)
 	}else{
 		$("#layout-footer").off().empty();
 		$("#" + event.target.id).find("[data-role=footer]").off().load("footer.html", function(){
-			$("#advertise").html("<a href='#' data-url='http://www.google.com' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/b6f9f-banner3.jpg'></a>");
+			//$("#advertise").html("<a href='#' data-url='http://www.google.com' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/b6f9f-banner3.jpg'></a>");
 		});		
 	}
 		event.preventDefault();
