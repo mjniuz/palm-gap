@@ -17,7 +17,7 @@
  * under the License.
  */
  
-var rootUrl = 'http://palm.dicoba.net/';
+var rootUrl = 'http://palm.drimim.info/';
 	
 var app = {
     // Application Constructor
@@ -417,7 +417,7 @@ var app = {
 		})
 		.done(function( data ) {
 			$("#advertise").html("").removeClass("m17");
-			$("#advertise").html("<a href='#' data-url='"+data.link+"' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/"+data.img+"'></a>").addClass("m17");
+			$("#advertise").html("<a href='#' data-url='"+data.link+"' id='openOnBrowser'><img class='img-adv' src='"+rootUrl+"media/"+data.img+"'></a>").addClass("m17");
 		}); 	       
     }
 	function openAdv(url){
@@ -599,7 +599,7 @@ $(document)
 	}else{
 		$("#layout-footer").off().empty();
 		$("#" + event.target.id).find("[data-role=footer]").off().load("footer.html", function(){
-			//$("#advertise").html("<a href='#' data-url='http://www.google.com' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/b6f9f-banner3.jpg'></a>");
+		
 		});		
 	}
 		event.preventDefault();
