@@ -371,6 +371,22 @@ var app = {
 			}); 
 		}
 	}
+	// share button
+	function shareini(){
+        // Also sharing the location's picture to show how you can use one within your message as well.
+        if (window.cordova && window.plugins && window.plugins.socialsharing) {
+            window.plugins.socialsharing.share("Hey install this app for your news information.",
+                'My Amsterdam Trip', "www/img/logo.png", 'www.itunes.com/blablabla',
+                function () {
+                    console.log("Success");
+                },
+                function (error) {
+                    console.log("Share fail " + error);
+                });
+        }else{
+			alert("Social sharing plugin not found or not supported.");
+		}
+    }
 	
 (function($){
 $(document)
@@ -401,6 +417,10 @@ $(document)
 			$('#Mynumber').val(getCookie('number'));
 		}
 	})
+})
+
+.on('click', '#shareNow' ,function() {
+	shareini();
 })
 .on('click', '#go-myprofile' ,function() {
 	pindahPage('#MyProfile');

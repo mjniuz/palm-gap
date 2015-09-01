@@ -64,6 +64,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="com.pushbots.push" version="1.2.1" source="plugins.cordova.io"/>
+	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
@@ -132,6 +133,10 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
+	<!-- for iOS -->
+	<feature name="SocialSharing">
+	  <param name="ios-package" value="SocialSharing" />
+	</feature>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />

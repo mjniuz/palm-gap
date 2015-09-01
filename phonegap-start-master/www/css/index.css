@@ -68,6 +68,16 @@ body {
 	background-size: 63px 47px;
 	height:47px;
 }
+.header-share {
+    background-image: url("../img/share.png");
+    background-position: 0 20%;
+    background-repeat: no-repeat;
+    background-size: 50px 44px;
+    float: left;
+    height: 47px;
+    margin-left: 5px;
+    width: 67px;
+}
 .header-bottom {
 	background: #6CAB38;
 	height: 5px;
