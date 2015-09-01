@@ -47,6 +47,10 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 		
+		// screen iOS
+		if (parseFloat(window.device.version) > 7.0) {
+			document.body.style.marginTop = "20px";
+		}
 		if(PushbotsPlugin.isiOS()){
 			PushbotsPlugin.initializeiOS("55d165de17795918468b4569");
 		}
