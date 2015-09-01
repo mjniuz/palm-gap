@@ -501,7 +501,7 @@ $(document)
 				$('#newads').trigger("reset");
 				pindahPage('#MyProfile');
 			}else{
-				alert('يرجى ملء كل مجال');
+				alert('يرجى ملء كل مجال'+data.why);
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
 			}
