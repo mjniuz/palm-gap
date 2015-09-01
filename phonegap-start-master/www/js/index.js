@@ -451,12 +451,7 @@ $(document)
 		}
 		if(pageAct == 'ads'){
 			$('#Mynumber').val(getCookie('number'));
-		}		
-		if(pageAct == 'MyProfile'){			
-			getMyName(getCookie('number'));
-			getAdsAjax();
-			$('#MyNumber').html(getCookie('number'));
-		}
+		}	
 		if(pageAct){
 			getbanner();
 		}
@@ -548,7 +543,10 @@ $(document)
 				alert('نجاح');
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
-				$('#newads').trigger("reset");
+				$('#newads').trigger("reset");				
+				getMyName(getCookie('number'));
+				getAdsAjax();
+				$('#MyNumber').html(getCookie('number'));
 				pindahPage('#MyProfile');
 			}else{
 				
