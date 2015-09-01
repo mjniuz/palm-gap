@@ -377,19 +377,36 @@ var app = {
 	}
 	// share button
 	function shareini(){
-        // Also sharing the location's picture to show how you can use one within your message as well.
-        if (window.cordova && window.plugins && window.plugins.socialsharing) {
-            window.plugins.socialsharing.share("Hey install this app for your news information.",
-                'My Amsterdam Trip', "www/img/logo.png", 'www.itunes.com/blablabla',
-                function () {
-                    console.log("Success");
-                },
-                function (error) {
-                    console.log("Share fail " + error);
-                });
-        }else{
-			alert("Social sharing plugin not found or not supported.");
-		}
+		var msgText = "loading...";
+		var html = $(this).jqmData( "html" ) || "";
+		$.mobile.loading( "show", {
+				text: msgText,
+				textVisible: true,
+	            textonly: false,
+				html: html
+		});
+		$.getJSON(  rootUrl+"api/example/share", {
+			tags: "mount rainier",
+			tagmode: "any",
+			format: "json"
+		})
+		.done(function( data ) {
+			// Also sharing the location's picture to show how you can use one within your message as well.
+			if (window.cordova && window.plugins && window.plugins.socialsharing) {
+				window.plugins.socialsharing.share(data.content,
+					data.title, rootUrl+"media/"+data.img, data.link,
+					function () {
+						console.log("Success");
+					},
+					function (error) {
+						console.log("Share fail " + error);
+					});
+				$.mobile.loading( "hide" );
+			}else{
+				alert("Social sharing plugin not found or not supported."+data.content);
+				$.mobile.loading( "hide" );
+			}
+		}); 	       
     }
 	
 (function($){
