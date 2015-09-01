@@ -329,7 +329,7 @@ var app = {
 			$.getJSON( rootUrl+"api/news/category/id/1", function( data ) {
 				$(data).off().each(function() {
 					var output = "<hr /><li class='h100'><a id='newsDetail' href='#' data-news='"+ this.id_news + "'><div class='user-image'><img src='"+rootUrl+"media/"
-					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<br /><p style='float:left;'><br /><i class='fa fa-angle-left green'></i></p>"
+					+ this.media + "' class='user-image'></div><div class='left20'><h4 class='top'>" + this.title + "<br /><p style='float:left;'></p>"
 					+ "</div></a></li></div></a></li>";
 					$('#summary').unbind().off().append(output);		
 				}); 
@@ -412,9 +412,7 @@ var app = {
 	// get banner ads
 	function getbanner(){
 		$.getJSON(  rootUrl+"api/example/advertise", {
-			cache: true,
-			tags: "",
-			tagmode: "any",
+			cache: false,
 			format: "json"
 		})
 		.done(function( data ) {
@@ -453,6 +451,11 @@ $(document)
 		}
 		if(pageAct == 'ads'){
 			$('#Mynumber').val(getCookie('number'));
+		}		
+		if(pageAct == 'MyProfile'){			
+			getMyName(getCookie('number'));
+			getAdsAjax();
+			$('#MyNumber').html(getCookie('number'));
 		}
 		if(pageAct){
 			getbanner();
@@ -548,14 +551,15 @@ $(document)
 				$('#newads').trigger("reset");
 				pindahPage('#MyProfile');
 			}else{
-				alert('يرجى ملء كل مجال'+data.why);
+				
+				alert(data.why);
+				//alert('يرجى ملء كل مجال'+data.why);
 				$("#processads").html('');
 				$("#newads-submit").removeAttr('disabled');
 			}
 	  },
 	  error: function(XMLHttpRequest, textStatus, errorThrown) {
 		alert(textStatus);	
-		$("#register-submit").text('تسجيل');
 	  }
 	});
 	e.preventDefault();
