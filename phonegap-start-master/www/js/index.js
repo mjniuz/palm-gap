@@ -423,7 +423,8 @@ var app = {
 		}); 	       
     }
 	function openAdv(url){
-		cordova.InAppBrowser.open(encodeURI(url), '_blank', 'location=yes');
+		var ref = window.open(encodeURI(url), '_blank', 'location=yes');
+		//cordova.InAppBrowser.open(encodeURI(url), '_blank', 'location=yes');
 		$("#advertise").html("").removeClass("m17");
 	}
 (function($){
