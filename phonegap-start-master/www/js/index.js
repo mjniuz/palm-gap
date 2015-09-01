@@ -126,20 +126,21 @@ var app = {
 	
 	function pindahPage(link,reload){
 		if(reload !== undefined){		
-		$.mobile.changePage( link, { 
-			transition: "fade", 
-			changeHash: true,
-			allowSamePageTransition:true,
-			reloadPage:true	
-		});			
+			$.mobile.changePage( link, { 
+				transition: "fade", 
+				changeHash: true,
+				allowSamePageTransition:true,
+				reloadPage:true	
+			});			
 		}else{		
-		$.mobile.changePage( link, { 
-			transition: "fade", 
-			changeHash: true,
-			allowSamePageTransition:true,
-			reloadPage:false	
-		});
+			$.mobile.changePage( link, { 
+				transition: "fade", 
+				changeHash: true,
+				allowSamePageTransition:true,
+				reloadPage:false	
+			});
 		}
+		//getbanner();
 	}
 	
 	
@@ -417,6 +418,7 @@ var app = {
 			format: "json"
 		})
 		.done(function( data ) {
+			$("#advertise").html("").removeClass("m17");
 			$("#advertise").html("<a href='#' data-url='"+data.link+"' id='openOnBrowser'><img class='img-adv' src='http://palm.dicoba.net/media/"+data.img+"'></a>").addClass("m17");
 		}); 	       
     }
@@ -432,7 +434,6 @@ $(document)
 		/*if(pageAct === 'news'){
 			newsAjax();		
 		} */
-		getbanner();
 		if(pageAct == 'newsDetailPage'){
 			newsAjax(getCookie('newsDetailId'));		
 		}
@@ -451,6 +452,9 @@ $(document)
 		}
 		if(pageAct == 'ads'){
 			$('#Mynumber').val(getCookie('number'));
+		}
+		if(pageAct){
+			getbanner();
 		}
 	})
 })
