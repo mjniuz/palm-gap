@@ -17,7 +17,7 @@
  * under the License.
  */
  
-var rootUrl = 'http://palm.drimim.info/';
+var rootUrl = 'http://palm.drmimo.info/';
 	
 var app = {
     // Application Constructor
