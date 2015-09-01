@@ -65,6 +65,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="com.pushbots.push" version="1.2.1" source="plugins.cordova.io"/>
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+	<gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
@@ -137,6 +138,7 @@
 	<feature name="SocialSharing">
 	  <param name="ios-package" value="SocialSharing" />
 	</feature>
+	<preference name="StatusBarOverlaysWebView" value="false" />
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
